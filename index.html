@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>凤梨溯源系统 - 广工揭阳校区团队</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">🍍 凤梨溯源系统</h1>
+            <nav class="nav">
+                <a href="#orchard" class="nav-link">果园介绍</a>
+                <a href="#growth" class="nav-link">生长过程</a>
+                <a href="#product" class="nav-link">产品信息</a>
+                <a href="#team" class="nav-link">团队介绍</a>
+                <div class="auth-buttons" id="authButtons">
+                    <button class="login-btn" onclick="showLoginModal()">登录</button>
+                    <button class="register-btn" onclick="showRegisterModal()">注册</button>
+                </div>
+                <div class="user-menu" id="userMenu" style="display: none;">
+                    <span class="user-name" id="userName">管理员</span>
+                    <button id="enterEditBtn" class="edit-mode-btn" onclick="enterEditMode()">编辑模式</button>
+                    <button id="saveChangesBtn" class="save-btn" onclick="saveChanges()" style="display: none;">保存修改</button>
+                    <button id="exitEditBtn" class="exit-btn" onclick="exitEditMode()" style="display: none;">退出编辑</button>
+                    <button class="logout-btn" onclick="logout()">退出</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 登录模态框 -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>管理员登录</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">邮箱:</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">密码:</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="submit-btn">登录</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 注册模态框 -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>管理员注册</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">姓名:</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">邮箱:</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">密码:</label>
+                    <input type="password" id="registerPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">确认密码:</label>
+                    <input type="password" id="confirmPassword" required minlength="6">
+                </div>
+                <button type="submit" class="submit-btn">注册</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="hero-title" data-editable="hero-title">科技赋能农业 · 溯源保障品质</h2>
+                <p class="hero-subtitle" data-editable="hero-subtitle">广工揭阳校区团队助力凤梨产业发展</p>
+                <button class="cta-button" onclick="scrollToSection('orchard')">了解我们的凤梨</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 果园介绍 -->
+    <section id="orchard" class="section orchard-section">
+        <div class="container">
+            <h2 class="section-title">果园介绍</h2>
+            <div class="orchard-content">
+                <div class="orchard-images">
+                    <div class="image-container" data-editable="orchard-image-1">
+                        <img src="https://images.unsplash.com/photo-1573246123719-d1c5b2c5c6b9?w=400" alt="凤梨果园" class="orchard-img">
+                        <button class="edit-image-btn" onclick="editImage('orchard-image-1')">更换图片</button>
+                    </div>
+                    <div class="image-container" data-editable="orchard-image-2">
+                        <img src="https://images.unsplash.com/photo-1573246123719-d1c5b2c5c6b9?w=400" alt="果园环境" class="orchard-img">
+                        <button class="edit-image-btn" onclick="editImage('orchard-image-2')">更换图片</button>
+                    </div>
+                </div>
+                <div class="orchard-info">
+                    <h3 data-editable="orchard-title">优质凤梨种植基地</h3>
+                    <p data-editable="orchard-description">我们的凤梨种植基地位于揭阳市优质农业区，拥有得天独厚的自然条件：</p>
+                    <ul data-editable="orchard-features">
+                        <li>🌞 充足的阳光照射</li>
+                        <li>💧 纯净的水源灌溉</li>
+                        <li>🌱 肥沃的土壤环境</li>
+                        <li>🌿 有机种植方式</li>
+                    </ul>
+                    
+                    <!-- 果农寄语 -->
+                    <div class="farmer-message">
+                        <h4>果农寄语</h4>
+                        <div class="message-content">
+                            <p data-editable="farmer-message">"我们用心种植每一颗凤梨，就像照顾自己的孩子一样。希望您能品尝到最甜美的果实！"</p>
+                            <button class="audio-btn" onclick="playFarmerMessage()">🎤 播放果农寄语</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 生长过程 -->
+    <section id="growth" class="section growth-section">
+        <div class="container">
+            <h2 class="section-title">凤梨生长过程</h2>
+            <div class="growth-timeline">
+                <div class="timeline-item" data-editable="growth-stage-1">
+                    <div class="timeline-date">第1个月</div>
+                    <div class="timeline-content">
+                        <h4>种植期</h4>
+                        <p>精心挑选优质种苗，科学种植</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-editable="growth-stage-2">
+                    <div class="timeline-date">第3个月</div>
+                    <div class="timeline-content">
+                        <h4>生长期</h4>
+                        <p>定期施肥浇水，确保健康生长</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-editable="growth-stage-3">
+                    <div class="timeline-date">第6个月</div>
+                    <div class="timeline-content">
+                        <h4>成熟期</h4>
+                        <p>果实逐渐成熟，糖分积累</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-editable="growth-stage-4">
+                    <div class="timeline-date">第8个月</div>
+                    <div class="timeline-content">
+                        <h4>采收期</h4>
+                        <p>人工精心挑选，确保品质</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品信息 -->
+    <section id="product" class="section product-section">
+        <div class="container">
+            <h2 class="section-title">产品信息</h2>
+            <div class="product-grid">
+                <div class="product-card" data-editable="product-variety">
+                    <h3>品种特点</h3>
+                    <ul>
+                        <li>🍍 品种：金钻凤梨</li>
+                        <li>🎯 特点：果肉细腻，甜度高</li>
+                        <li>📏 规格：1.5-2.0kg/个</li>
+                        <li>🌡️ 储存：常温保存7-10天</li>
+                    </ul>
+                </div>
+                <div class="product-card" data-editable="product-nutrition">
+                    <h3>营养价值</h3>
+                    <ul>
+                        <li>💪 富含维生素C</li>
+                        <li>🍯 天然果糖</li>
+                        <li>🌿 膳食纤维</li>
+                        <li>💧 水分充足</li>
+                    </ul>
+                </div>
+                <div class="product-card" data-editable="product-suggestion">
+                    <h3>食用建议</h3>
+                    <ul>
+                        <li>🍽️ 鲜食最佳</li>
+                        <li>🍹 可制作果汁</li>
+                        <li>🍰 烘焙配料</li>
+                        <li>🥗 沙拉搭配</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 团队介绍 -->
+    <section id="team" class="section team-section">
+        <div class="container">
+            <h2 class="section-title">团队介绍</h2>
+            <div class="team-content">
+                <div class="team-info">
+                    <h3 data-editable="team-title">广东工业大学揭阳校区团队</h3>
+                    <p data-editable="team-description">我们是一支由电子商务专业学生组成的团队，致力于用科技赋能传统农业，为凤梨产业插上"科技的翅膀"。</p>
+                    
+                    <div class="team-members">
+                        <div class="member" data-editable="team-goal">
+                            <h4>项目目标</h4>
+                            <p>通过溯源系统提升农产品价值，让消费者吃得放心</p>
+                        </div>
+                        <div class="member" data-editable="team-tech">
+                            <h4>技术特色</h4>
+                            <p>结合H5页面与Supabase后端，实现数据实时更新</p>
+                        </div>
+                        <div class="member" data-editable="team-future">
+                            <h4>未来规划</h4>
+                            <p>扩展更多农产品溯源，助力乡村振兴</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 广工揭阳校区凤梨溯源项目. 保留所有权利.</p>
+            <p>技术支持：Supabase + H5页面</p>
+        </div>
+    </footer>
+
+    <!-- 在body结束前 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>
