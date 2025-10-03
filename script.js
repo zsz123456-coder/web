@@ -752,7 +752,7 @@ function checkNetworkStatus() {
     }
     
     // 测试网络连接
-    return fetch('https://fyuqdxccxzqgfokueafd.supabase.co/rest/v1/', {
+    return fetch('https://ywvhzdaxfysxeaxfihae.supabase.co/rest/v1/', {
         method: 'HEAD',
         mode: 'no-cors'
     }).then(() => true).catch(() => {
